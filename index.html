@@ -2,264 +2,186 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Rutvij Dave | Data Engineer</title>
+<title>Rutvij Dave — Data Engineer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
 <style>
+
+/* GLOBAL */
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
-margin:0;
-font-family:Poppins,sans-serif;
-background:#0f172a;
-color:white;
-scroll-behavior:smooth;
-overflow-x:hidden;
+  font-family: 'Poppins', sans-serif;
+  color:#EEF2F7;
+  background:#0a0f24;
+  overflow-x:hidden;
 }
 
-/* NAVBAR */
+/* NAV */
 nav{
-position:fixed;
-top:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-padding:18px 10%;
-background:rgba(15,23,42,.7);
-backdrop-filter:blur(12px);
-z-index:1000;
+  position:fixed;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;
+  padding:20px 8%;
+  backdrop-filter:blur(14px);
+  background:rgba(10,15,36,0.75);
+  z-index:1000;
 }
-
 nav a{
-color:white;
-text-decoration:none;
-margin:0 15px;
-font-weight:500;
+  color:#EEF2F7;text-decoration:none;margin:0 15px;font-weight:500;
+  transition:0.3s;
 }
-
-nav a:hover{color:#38bdf8}
+nav a:hover{color:#38bdf8;}
 
 /* HERO */
 .hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:linear-gradient(-45deg,#020617,#0f172a,#1e293b,#020617);
-background-size:400% 400%;
-animation:bg 12s infinite ease;
+  height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  background:linear-gradient(-45deg,#0a0f24,#15213a,#0a0f24,#15213a);
+  background-size:400% 400%;
+  animation: gradient 12s ease infinite;
 }
-
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+@keyframes gradient{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
-
 .hero h1{
-font-size:70px;
-margin:0;
-background:linear-gradient(90deg,#38bdf8,#818cf8);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+  font-size:4.5rem;
+  background:linear-gradient(90deg,#38bdf8,#818cf8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
-
-.hero h2{
-margin-top:15px;
-font-weight:300;
-opacity:.85;
+.hero p{
+  margin-top:15px;font-size:1.4rem;opacity:0.9;
+  animation:fade 2s ease;
 }
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
 
-.typing{
-color:#38bdf8;
-border-right:3px solid;
-padding-right:5px;
-animation:blink .7s infinite;
-}
-
-@keyframes blink{
-50%{border-color:transparent}
-}
-
-/* SECTION */
+/* SECTION TITLES */
 section{
-padding:120px 10%;
-opacity:0;
-transform:translateY(40px);
-transition:1s;
+  padding:90px 8%;
+}
+.section-title{
+  font-size:2.7rem;
+  margin-bottom:30px;
+  text-align:center;
+  background:linear-gradient(90deg,#38bdf8,#818cf8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-section.show{
-opacity:1;
-transform:translateY(0);
+/* SKILL BARS */
+.skill{
+  margin:20px 0;
 }
-
-.title{
-font-size:38px;
-margin-bottom:40px;
-text-align:center;
-background:linear-gradient(90deg,#38bdf8,#818cf8);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-/* CARDS */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
-}
-
-.card{
-background:#1e293b;
-padding:30px;
-border-radius:16px;
-transition:.4s;
-}
-
-.card:hover{
-transform:translateY(-10px) scale(1.03);
-box-shadow:0 0 40px rgba(56,189,248,.3);
-}
-
-/* SKILLS */
 .bar{
-height:12px;
-background:#020617;
-border-radius:20px;
-margin:10px 0 25px;
-overflow:hidden;
+  width:100%;height:12px;
+  background:#0a0f24;border-radius:12px;
+  overflow:hidden;
 }
+.bar-fill{
+  height:100%;width:0;
+  background:linear-gradient(90deg,#38bdf8,#6366f1);
+  border-radius:12px;
+  animation:load 2s ease forwards;
+}
+@keyframes load{to{width:var(--w);}}
 
-.fill{
-height:100%;
-background:linear-gradient(90deg,#38bdf8,#6366f1);
-width:0;
-animation:load 2s forwards;
+/* PROJECT GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:30px;
 }
-
-@keyframes load{
-to{width:var(--w)}
+.card{
+  background:#15203a;padding:25px;border-radius:14px;
+  box-shadow:0px 10px 40px rgba(0,0,0,0.3);
+  transition:0.4s;
 }
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0px 15px 60px rgba(56,189,248,0.35);
+}
+.card h3{margin-bottom:12px;font-size:1.3rem;}
+.card p{opacity:0.85;font-size:0.95rem;}
 
 /* FOOTER */
 footer{
-text-align:center;
-padding:50px;
-background:#020617;
-margin-top:60px;
-opacity:.7;
+  text-align:center;padding:40px;background:#0a0f24;
+  opacity:0.7;font-size:14px;
 }
+
+/* SCROLL REVEAL */
+.hidden{opacity:0;transform:translateY(30px);transition:1s;}
+.visible{opacity:1;transform:translateY(0);}
+
 </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
 <nav>
-<div><b>Rutvij</b></div>
-<div>
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#projects">Projects</a>
-<a href="#contact">Contact</a>
-</div>
+  <div><b>Rutvij</b></div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
-<h1>Rutvij Dave</h1>
-<h2>I build <span class="typing" id="typing"></span></h2>
+  <h1>Rutvij Dave</h1>
+  <p>Building bold data platforms & cloud systems</p>
 </div>
 
-<!-- ABOUT -->
-<section id="about">
-<h2 class="title">About Me</h2>
-<p style="max-width:700px;margin:auto;text-align:center">
-Senior Data Engineer with 7+ years experience designing scalable data platforms,
-modern warehouse architectures, and high-performance pipelines using AWS and Snowflake.
-I specialize in building production-grade data systems that transform raw data into
-decision-ready intelligence.
-</p>
+<section id="about" class="hidden">
+  <div class="section-title">About Me</div>
+  <p>I’m a Senior Data Engineer with 7+ years experience building scalable data platforms, modern warehousing, and high-performance pipelines on AWS + Snowflake.</p>
 </section>
 
-<!-- SKILLS -->
-<section id="skills">
-<h2 class="title">Skills</h2>
+<section id="skills" class="hidden">
+  <div class="section-title">Skills</div>
 
-AWS
-<div class="bar"><div class="fill" style="--w:90%"></div></div>
+  AWS
+  <div class="bar"><div class="bar-fill" style="--w:90%"></div></div>
 
-Snowflake
-<div class="bar"><div class="fill" style="--w:85%"></div></div>
+  Snowflake
+  <div class="bar"><div class="bar-fill" style="--w:85%"></div></div>
 
-SQL
-<div class="bar"><div class="fill" style="--w:92%"></div></div>
+  SQL
+  <div class="bar"><div class="bar-fill" style="--w:92%"></div></div>
 
-Data Engineering
-<div class="bar"><div class="fill" style="--w:95%"></div></div>
-
+  Data Engineering
+  <div class="bar"><div class="bar-fill" style="--w:95%"></div></div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-<h2 class="title">Projects</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Enterprise Warehouse</h3>
-<p>Designed scalable Snowflake warehouse with optimized transformations.</p>
-</div>
-
-<div class="card">
-<h3>Pipeline Framework</h3>
-<p>Automated multi-source ingestion pipeline with monitoring and alerts.</p>
-</div>
-
-<div class="card">
-<h3>Analytics Platform</h3>
-<p>Built data models powering real-time business intelligence dashboards.</p>
-</div>
-
-</div>
+<section id="projects" class="hidden">
+  <div class="section-title">Projects</div>
+  <div class="grid">
+    <div class="card"><h3>Enterprise Warehouse</h3><p>Optimized Snowflake design + analytics pipelines.</p></div>
+    <div class="card"><h3>Automated ETL</h3><p>Resilient multi-source ingestion pipelines.</p></div>
+    <div class="card"><h3>Analytics Dashboards</h3><p>Data models powering BI insights.</p></div>
+  </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-<h2 class="title">Contact</h2>
-<p style="text-align:center">
-📞 +91 884 9214 912<br><br>
-📧 your@email.com
-</p>
+<section id="contact" class="hidden">
+  <div class="section-title">Contact</div>
+  <p>📞 +91 884 9214 912<br>📧 your@email.com</p>
 </section>
 
-<footer>
-© Rutvij Dave — Data Engineering Portfolio
-</footer>
+<footer>© Rutvij Dave — Portfolio</footer>
 
 <script>
-/* typing text */
-const words=["scalable data systems","cloud architectures","data pipelines","analytics platforms"];
-let i=0,j=0,current="",isDeleting=false;
-function type(){
-current=words[i];
-document.getElementById("typing").textContent=current.substring(0,j);
-if(!isDeleting && j++===current.length){isDeleting=true;setTimeout(type,1200);return;}
-if(isDeleting && j--===0){isDeleting=false;i=(i+1)%words.length;}
-setTimeout(type,isDeleting?50:100);
-}
-type();
-
-/* scroll animation */
-const sections=document.querySelectorAll("section");
-window.addEventListener("scroll",()=>{
-sections.forEach(sec=>{
-const top=sec.getBoundingClientRect().top;
-if(top<window.innerHeight-100){sec.classList.add("show")}
-})
+// reveal on scroll
+const sections=document.querySelectorAll('section');
+window.addEventListener('scroll',() => {
+  for(let s of sections){
+    const top=s.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      s.classList.add('visible');
+      s.classList.remove('hidden');
+    }
+  }
 });
 </script>
 
