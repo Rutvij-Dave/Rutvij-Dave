@@ -1,187 +1,262 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Rutvij Dave — Data Engineer</title>
+<title>Rutvij Dave</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
-/* GLOBAL */
-*{margin:0;padding:0;box-sizing:border-box;}
+/* ===== GLOBAL ===== */
 body{
-  font-family: 'Poppins', sans-serif;
-  color:#EEF2F7;
-  background:#0a0f24;
-  overflow-x:hidden;
+margin:0;
+font-family:Inter, sans-serif;
+background:#0a0f1f;
+color:white;
+overflow-x:hidden;
+scroll-behavior:smooth;
+}
+
+/* animated gradient blobs */
+.blob{
+position:fixed;
+width:500px;
+height:500px;
+background:radial-gradient(circle,#38bdf8,transparent 70%);
+filter:blur(120px);
+opacity:.25;
+z-index:-1;
+animation:move 20s infinite alternate ease-in-out;
+}
+.blob:nth-child(2){
+background:radial-gradient(circle,#818cf8,transparent 70%);
+left:60%;
+top:40%;
+animation-delay:5s;
+}
+@keyframes move{
+to{transform:translate(200px,-150px) scale(1.2);}
 }
 
 /* NAV */
 nav{
-  position:fixed;top:0;left:0;right:0;
-  display:flex;justify-content:space-between;
-  padding:20px 8%;
-  backdrop-filter:blur(14px);
-  background:rgba(10,15,36,0.75);
-  z-index:1000;
+position:fixed;
+width:100%;
+padding:22px 8%;
+display:flex;
+justify-content:space-between;
+backdrop-filter:blur(12px);
+background:rgba(10,15,31,.6);
+z-index:10;
 }
 nav a{
-  color:#EEF2F7;text-decoration:none;margin:0 15px;font-weight:500;
-  transition:0.3s;
+color:white;text-decoration:none;margin-left:30px;
+opacity:.8;
+transition:.3s;
 }
-nav a:hover{color:#38bdf8;}
+nav a:hover{opacity:1;color:#38bdf8}
 
 /* HERO */
 .hero{
-  height:100vh;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;
-  text-align:center;
-  background:linear-gradient(-45deg,#0a0f24,#15213a,#0a0f24,#15213a);
-  background-size:400% 400%;
-  animation: gradient 12s ease infinite;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
 }
-@keyframes gradient{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
+
 .hero h1{
-  font-size:4.5rem;
-  background:linear-gradient(90deg,#38bdf8,#818cf8);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+font-size:80px;
+margin:0;
+background:linear-gradient(90deg,#38bdf8,#818cf8);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
+
 .hero p{
-  margin-top:15px;font-size:1.4rem;opacity:0.9;
-  animation:fade 2s ease;
+margin-top:20px;
+font-size:22px;
+opacity:.85;
 }
-@keyframes fade{from{opacity:0;}to{opacity:1;}}
 
-/* SECTION TITLES */
+/* SECTIONS */
 section{
-  padding:90px 8%;
+padding:140px 10%;
+max-width:1100px;
+margin:auto;
+opacity:0;
+transform:translateY(40px);
+transition:1.2s;
 }
-.section-title{
-  font-size:2.7rem;
-  margin-bottom:30px;
-  text-align:center;
-  background:linear-gradient(90deg,#38bdf8,#818cf8);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+section.show{
+opacity:1;
+transform:translateY(0);
 }
 
-/* SKILL BARS */
-.skill{
-  margin:20px 0;
+.title{
+font-size:42px;
+margin-bottom:40px;
 }
-.bar{
-  width:100%;height:12px;
-  background:#0a0f24;border-radius:12px;
-  overflow:hidden;
-}
-.bar-fill{
-  height:100%;width:0;
-  background:linear-gradient(90deg,#38bdf8,#6366f1);
-  border-radius:12px;
-  animation:load 2s ease forwards;
-}
-@keyframes load{to{width:var(--w);}}
 
-/* PROJECT GRID */
+/* CARDS */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
 }
+
 .card{
-  background:#15203a;padding:25px;border-radius:14px;
-  box-shadow:0px 10px 40px rgba(0,0,0,0.3);
-  transition:0.4s;
+background:#11172c;
+padding:35px;
+border-radius:18px;
+transition:.35s;
+position:relative;
+overflow:hidden;
 }
+
+.card::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background:linear-gradient(120deg,transparent,#38bdf8,transparent);
+transform:rotate(25deg);
+left:-100%;
+top:-100%;
+transition:.6s;
+}
+.card:hover::before{
+left:100%;
+top:100%;
+}
+
 .card:hover{
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0px 15px 60px rgba(56,189,248,0.35);
+transform:translateY(-10px);
 }
-.card h3{margin-bottom:12px;font-size:1.3rem;}
-.card p{opacity:0.85;font-size:0.95rem;}
+
+/* SKILLS */
+.skill{margin:25px 0;}
+.bar{
+height:12px;
+background:#050814;
+border-radius:20px;
+overflow:hidden;
+}
+.fill{
+height:100%;
+background:linear-gradient(90deg,#38bdf8,#6366f1);
+width:0;
+animation:load 2s forwards;
+}
+@keyframes load{to{width:var(--w)}}
 
 /* FOOTER */
 footer{
-  text-align:center;padding:40px;background:#0a0f24;
-  opacity:0.7;font-size:14px;
+text-align:center;
+padding:80px 20px;
+opacity:.6;
 }
 
-/* SCROLL REVEAL */
-.hidden{opacity:0;transform:translateY(30px);transition:1s;}
-.visible{opacity:1;transform:translateY(0);}
+/* CURSOR GLOW */
+.cursor{
+position:fixed;
+width:20px;
+height:20px;
+border-radius:50%;
+background:#38bdf8;
+pointer-events:none;
+mix-blend-mode:screen;
+transform:translate(-50%,-50%);
+transition:.1s;
+z-index:999;
+}
 
 </style>
 </head>
+
 <body>
 
+<div class="blob"></div>
+<div class="blob"></div>
+<div class="cursor"></div>
+
 <nav>
-  <div><b>Rutvij</b></div>
-  <div>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </div>
+<div><b>Rutvij</b></div>
+<div>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+</div>
 </nav>
 
 <div class="hero">
-  <h1>Rutvij Dave</h1>
-  <p>Building bold data platforms & cloud systems</p>
+<h1>Rutvij Dave</h1>
+<p>Designing data systems that scale intelligently</p>
 </div>
 
-<section id="about" class="hidden">
-  <div class="section-title">About Me</div>
-  <p>I’m a Senior Data Engineer with 7+ years experience building scalable data platforms, modern warehousing, and high-performance pipelines on AWS + Snowflake.</p>
+<section id="about">
+<div class="title">About</div>
+<p>
+Senior Data Engineer with 7+ years experience building scalable data platforms,
+modern architectures, and analytics systems using AWS and Snowflake.
+I specialize in transforming raw data into decision-ready intelligence.
+</p>
 </section>
 
-<section id="skills" class="hidden">
-  <div class="section-title">Skills</div>
+<section id="skills">
+<div class="title">Skills</div>
 
-  AWS
-  <div class="bar"><div class="bar-fill" style="--w:90%"></div></div>
+<div class="skill">AWS<div class="bar"><div class="fill" style="--w:90%"></div></div></div>
+<div class="skill">Snowflake<div class="bar"><div class="fill" style="--w:85%"></div></div></div>
+<div class="skill">SQL<div class="bar"><div class="fill" style="--w:92%"></div></div></div>
+<div class="skill">Data Engineering<div class="bar"><div class="fill" style="--w:95%"></div></div></div>
 
-  Snowflake
-  <div class="bar"><div class="bar-fill" style="--w:85%"></div></div>
-
-  SQL
-  <div class="bar"><div class="bar-fill" style="--w:92%"></div></div>
-
-  Data Engineering
-  <div class="bar"><div class="bar-fill" style="--w:95%"></div></div>
 </section>
 
-<section id="projects" class="hidden">
-  <div class="section-title">Projects</div>
-  <div class="grid">
-    <div class="card"><h3>Enterprise Warehouse</h3><p>Optimized Snowflake design + analytics pipelines.</p></div>
-    <div class="card"><h3>Automated ETL</h3><p>Resilient multi-source ingestion pipelines.</p></div>
-    <div class="card"><h3>Analytics Dashboards</h3><p>Data models powering BI insights.</p></div>
-  </div>
+<section id="projects">
+<div class="title">Projects</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Enterprise Warehouse</h3>
+<p>Designed scalable Snowflake architecture powering analytics workloads.</p>
+</div>
+
+<div class="card">
+<h3>ETL Platform</h3>
+<p>Automated ingestion pipelines with monitoring and resilience.</p>
+</div>
+
+<div class="card">
+<h3>Analytics Models</h3>
+<p>Built production data models supporting business insights.</p>
+</div>
+
+</div>
 </section>
 
-<section id="contact" class="hidden">
-  <div class="section-title">Contact</div>
-  <p>📞 +91 884 9214 912<br>📧 your@email.com</p>
-</section>
-
-<footer>© Rutvij Dave — Portfolio</footer>
+<footer>
+© Rutvij Dave — Data Engineer Portfolio
+</footer>
 
 <script>
-// reveal on scroll
-const sections=document.querySelectorAll('section');
-window.addEventListener('scroll',() => {
-  for(let s of sections){
-    const top=s.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
-      s.classList.add('visible');
-      s.classList.remove('hidden');
-    }
-  }
+
+/* scroll reveal */
+const sections=document.querySelectorAll("section");
+window.addEventListener("scroll",()=>{
+sections.forEach(s=>{
+if(s.getBoundingClientRect().top<window.innerHeight-100)
+s.classList.add("show");
+});
+});
+
+/* cursor glow */
+const cursor=document.querySelector(".cursor");
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
 });
 </script>
 
