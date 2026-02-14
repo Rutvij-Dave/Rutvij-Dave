@@ -34,6 +34,6 @@ Senior Data Engineer with 7+ years experience building scalable data platforms, 
 ---
 
 ## Portfolio Website
-<a href="https://YOURUSERNAME.github.io/portfolio">
+<a href="https://github.com/Rutvij-Dave/Rutvij-Dave/blob/main/index.html">
 View Full Portfolio Website →
 </a>
