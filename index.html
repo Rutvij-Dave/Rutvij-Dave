@@ -3,101 +3,82 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Rutvij Dave — Senior Data Engineer</title>
+<title>Rutvij Dave — Flagship Portfolio (God Mode)</title>
 
-<!-- Favicon (SVG Data URI) -->
+<!-- Favicon (embedded SVG) -->
 <link rel="icon" href="data:image/svg+xml;utf8,
 <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'>
   <defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%2338bdf8'/><stop offset='1' stop-color='%23818cf8'/></linearGradient></defs>
-  <rect width='64' height='64' rx='12' fill='%230f172a'/>
+  <rect width='64' height='64' rx='12' fill='%230b1220'/>
   <text x='50%' y='54%' font-size='28' font-family='Poppins, sans-serif' fill='url(%23g)' text-anchor='middle' font-weight='700'>RD</text>
 </svg>" />
 
-<meta name="description" content="Rutvij Dave — Senior Data Engineer. Cloud & Big Data specialist (AWS, Snowflake). Portfolio & projects." />
-<meta property="og:title" content="Rutvij Dave — Data Engineer" />
-<meta property="og:description" content="Building scalable data platforms, ETL pipelines & analytics systems." />
-<meta property="og:type" content="website" />
-<!-- Replace when you add a real OG image -->
-<meta property="og:image" content="https://raw.githubusercontent.com/yourusername/portfolio/main/og-image.png" />
+<meta name="description" content="Rutvij Dave — Senior Data Engineer. Flagship interactive portfolio." />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
 
-<!-- Fonts & external libs -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-<!-- Three.js + GSAP from CDN -->
+<!-- Three.js + GSAP + Simplex noise lib -->
 <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
-<script src="https://unpkg.com/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
 <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/simplex-noise@3.0.0/simplex-noise.js"></script>
 
 <style>
 :root{
-  --bg:#07071a;
-  --card:#0f1726;
-  --muted:#9aa7bd;
-  --accent1:#38bdf8;
-  --accent2:#818cf8;
+  --bg:#04050b;
+  --panel:#0e1624;
+  --muted:#9fb0c7;
+  --accent1:#00e5ff;
+  --accent2:#8c7bff;
   --glass: rgba(255,255,255,0.03);
+  --max-width:1200px;
 }
-
-/* base reset */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#e6eef8;background:var(--bg);-webkit-font-smoothing:antialiased}
+html,body{height:100%;margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(8,12,30,0.6), transparent), var(--bg); color:#eaf2ff; font-family:Inter, Poppins, system-ui, -apple-system, "Segoe UI", Roboto;}
 a{color:inherit}
 
 /* Loader */
-#loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#030312 0,#08092a 100%);z-index:9999}
-.loader-dots{display:flex;gap:12px}
-.loader-dots span{width:14px;height:14px;border-radius:50%;background:linear-gradient(90deg,var(--accent1),var(--accent2));animation:updown 0.9s infinite}
-.loader-dots span:nth-child(2){animation-delay:.12s} .loader-dots span:nth-child(3){animation-delay:.24s}
-@keyframes updown{0%{transform:translateY(0)}50%{transform:translateY(-12px)}100%{transform:translateY(0)}}
+#loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(2,4,10,0.96), rgba(3,6,12,0.96));z-index:9999}
+.loader-wrap{display:flex;flex-direction:column;align-items:center;gap:18px}
+.logo-anim{width:90px;height:90px;border-radius:18px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#07122a;font-size:28px}
+.load-text{color:var(--muted);opacity:.9}
 
-/* Canvas container for WebGL */
-#hero-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+/* canvas */
+#glCanvas{position:fixed;inset:0;z-index:0;display:block}
 
-/* custom cursor */
-.cursor{position:fixed;pointer-events:none;width:28px;height:28px;border-radius:50%;z-index:2000;transform:translate(-50%,-50%);mix-blend-mode:screen;background:radial-gradient(circle, rgba(56,189,248,.95), rgba(56,189,248,.25) 25%, transparent 45%);transition:transform .08s ease,width .12s ease,height .12s ease,opacity .12s}
+/* cursor */
+.cursor{position:fixed;left:50%;top:50%;width:26px;height:26px;border-radius:50%;pointer-events:none;mix-blend-mode:screen;z-index:2000;transform:translate(-50%,-50%);background:radial-gradient(circle, rgba(0,229,255,.95), rgba(140,123,255,.5) 30%, transparent 45%);transition:transform .08s ease,width .12s,height .12s,opacity .12s}
 
-/* nav */
-.header{position:fixed;top:18px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 6%;z-index:50}
-.brand{font-weight:800;letter-spacing:.5px}
-.nav{display:flex;gap:18px;align-items:center}
-.nav a{color:rgba(230,238,248,.95);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600;transition:all .18s}
-.nav a:hover{transform:translateY(-4px);color:var(--accent1)}
-
-/* performance toggle */
-.toggle{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer}
+/* header */
+.header{position:fixed;top:18px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 6%;z-index:60;pointer-events:all}
+.brand{font-weight:800;font-size:18px;letter-spacing:.4px}
+.nav{display:flex;gap:12px;align-items:center}
+.nav a{padding:8px 12px;border-radius:10px;text-decoration:none;color:rgba(230,238,248,.95);font-weight:600;transition:all .18s}
+.nav a:hover{color:var(--accent1);transform:translateY(-3px)}
+.controls{display:flex;gap:8px;align-items:center}
 
 /* hero */
-.hero{position:relative;min-height:86vh;display:flex;align-items:center;justify-content:center;padding:8vh 6%;text-align:center;z-index:2}
-.hero-inner{max-width:1200px}
-.kicker{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(56,189,248,.06), rgba(129,140,248,.04));color:var(--accent1);font-weight:700;margin-bottom:18px}
-.h1{font-size:clamp(36px,7vw,84px);line-height:1;margin:0;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
-.h2{color:var(--muted);margin-top:12px;font-size:18px}
+.hero{min-height:86vh;display:flex;align-items:center;justify-content:center;padding:12vh 6%;text-align:center;position:relative;z-index:2}
+.hero-inner{max-width:var(--max-width)}
+.kicker{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(0,229,255,0.06), rgba(140,123,255,0.04));color:var(--accent1);font-weight:700;margin-bottom:18px;font-size:13px}
+.h1{font-size:clamp(36px,7vw,86px);line-height:1;margin:0;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
+.h2{color:var(--muted);margin-top:14px;font-size:18px}
 
 /* CTA */
 .cta{margin-top:28px;display:inline-flex;gap:12px}
-.btn{padding:12px 18px;border-radius:12px;font-weight:700;background:linear-gradient(90deg, rgba(56,189,248,.08), rgba(129,140,248,.06));border:1px solid rgba(255,255,255,0.04);color:#e8f9ff;text-decoration:none}
-.btn:hover{transform:translateY(-6px);box-shadow:0 20px 56px rgba(56,189,248,.06)}
-
-/* glass intro */
-.intro{margin-top:40px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;display:flex;gap:18px;align-items:center;justify-content:center;max-width:920px;margin-left:auto;margin-right:auto}
-.intro p{margin:0;color:var(--muted)}
+.btn{padding:12px 18px;border-radius:12px;font-weight:700;background:linear-gradient(90deg, rgba(0,229,255,0.06), rgba(140,123,255,0.04));border:1px solid rgba(255,255,255,0.04);color:#e9fbff;text-decoration:none}
+.btn:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,229,255,.06)}
 
 /* sections */
-section{padding:96px 6%;position:relative;z-index:2}
-.section-title{font-weight:800;font-size:28px;margin-bottom:18px}
-.two-col{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:start}
-@media(max-width:880px){.two-col{grid-template-columns:1fr}.hero{padding:10vh 6%}.h1{font-size:36px}}
+section{padding:80px 6%;position:relative;z-index:2}
+.container{max-width:var(--max-width);margin:0 auto}
+.section-title{font-weight:800;font-size:26px;margin-bottom:18px}
+.two-col{display:grid;grid-template-columns:1fr 360px;gap:30px}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}.hero{padding:8vh 6%}}
 
-/* skills */
-.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.skill{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03)}
-.skill h4{margin:0 0 8px 0}
-.bar{height:12px;background:rgba(0,0,0,0.25);border-radius:999px;overflow:hidden}
-.fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width 1.6s cubic-bezier(.2,.9,.2,1)}
-
-/* projects grid */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
-.project{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);transition:transform .36s,box-shadow .36s;position:relative;overflow:hidden}
-.project:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(2,6,23,0.6)}
+/* cards */
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,0.5)}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.project{position:relative;padding:18px;border-radius:12px;overflow:hidden;transition:transform .36s,box-shadow .36s}
+.project:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(0,0,0,0.6)}
 .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--accent1);font-weight:700;font-size:12px}
 
 /* modal */
@@ -106,9 +87,9 @@ section{padding:96px 6%;position:relative;z-index:2}
 .panel{width:100%;max-width:980px;background:#071226;padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
 
 /* footer */
-.footer{padding:48px 6%;text-align:center;color:var(--muted)}
+.footer{padding:48px 6%;text-align:center;color:var(--muted);z-index:2}
 
-/* reveal utility */
+/* reveal util */
 .reveal{opacity:0;transform:translateY(24px);transition:all .9s cubic-bezier(.2,.9,.2,1)}
 .reveal.show{opacity:1;transform:translateY(0)}
 </style>
@@ -117,13 +98,16 @@ section{padding:96px 6%;position:relative;z-index:2}
 
 <!-- Loader -->
 <div id="loader" role="status" aria-hidden="false">
-  <div class="loader-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="loader-wrap">
+    <div class="logo-anim">RD</div>
+    <div class="load-text">Rutvij Dave — preparing the experience...</div>
+  </div>
 </div>
 
-<!-- WebGL canvas -->
-<canvas id="hero-canvas" aria-hidden="true"></canvas>
+<!-- GL Canvas -->
+<canvas id="glCanvas" aria-hidden="true"></canvas>
 
-<!-- custom cursor -->
+<!-- cursor -->
 <div class="cursor" id="cursor" aria-hidden="true"></div>
 
 <!-- header -->
@@ -134,7 +118,7 @@ section{padding:96px 6%;position:relative;z-index:2}
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
-    <button class="toggle" id="perfToggle" title="Toggle performance mode">Perf: Full</button>
+    <button class="btn" id="godToggle" title="Toggle ultra god-mode">God: OFF</button>
   </nav>
 </header>
 
@@ -144,145 +128,136 @@ section{padding:96px 6%;position:relative;z-index:2}
     <div class="hero-inner">
       <div class="kicker">Senior Data Engineer • Cloud & Big Data</div>
       <h1 class="h1" id="hero-title">I build <span id="type">scalable data platforms</span></h1>
-      <p class="h2">Production ETL & orchestration • Snowflake data warehousing • AWS cloud infrastructure</p>
+      <p class="h2">Snowflake • AWS • ETL/ELT • Data Modeling • Observability</p>
 
       <div class="cta">
         <a class="btn" href="#projects">See Projects</a>
         <a class="btn" href="#contact">Contact</a>
-        <a class="btn" id="audioToggle" href="#" title="Enable sound reactive demo">Enable Sound</a>
       </div>
 
-      <div class="intro" aria-label="Snapshot">
-        <div class="meta">
-          <h3 style="margin:0 0 6px 0">Snapshot</h3>
-          <p style="color:var(--muted);margin:0">7+ years experience • 5+ years in Data Engineering • AWS • Snowflake • ETL/ELT • Data Modeling • Orchestration</p>
+      <div style="margin-top:34px" class="card intro">
+        <div style="flex:1">
+          <strong>Snapshot</strong>
+          <p style="color:var(--muted);margin:8px 0 0 0">7+ years experience • 5+ years in Data Engineering • Architect & implement cloud-scale data platforms</p>
+        </div>
+        <div style="width:160px;text-align:center">
+          <small style="color:var(--muted)">Perf</small>
+          <div style="height:8px;border-radius:999px;background:rgba(255,255,255,0.03);margin-top:8px;overflow:hidden">
+            <div style="width:90%;height:100%;background:linear-gradient(90deg,var(--accent1),var(--accent2));border-radius:999px"></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- About & quick CTA -->
   <section id="about" class="reveal">
-    <div class="two-col">
+    <div class="container two-col">
       <div>
         <div class="section-title">About</div>
-        <p style="color:var(--muted)">I am a professionally driven Senior Data Engineer with expertise designing and maintaining large-scale big data platforms, Snowflake data models, and cloud-native ETL systems. I focus on observability, automation, and performance tuning.</p>
-        <div style="margin-top:18px">
-          <a class="btn" href="#contact">Let's Talk</a>
-        </div>
+        <p style="color:var(--muted)">I design and build large-scale data platforms using AWS and Snowflake. My focus is on reliable ETL, observability, automation, and delivering analytics-ready warehouses that power business decisions.</p>
+        <div style="margin-top:18px"><a class="btn" href="#contact">Let's Talk</a></div>
       </div>
-      <div>
-        <div style="border-radius:12px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03)">
-          <h4 style="margin:0 0 8px 0">Contact</h4>
-          <p style="color:var(--muted);margin:0">📞 +91 884 9214 912<br>📧 <a href="mailto:your@email.com" style="color:var(--accent1)">your@email.com</a></p>
-        </div>
+      <div class="card">
+        <strong>Contact</strong>
+        <p style="color:var(--muted);margin:8px 0 0">📞 +91 884 9214 912<br>📧 <a href="mailto:your@email.com" style="color:var(--accent1)">your@email.com</a></p>
       </div>
     </div>
   </section>
 
-  <!-- Skills -->
   <section id="skills" class="reveal">
-    <div class="section-title">Skills & Tools</div>
-    <div class="skills">
-      <div class="skill"><h4>AWS — Cloud Platforms</h4><div class="bar"><div class="fill" data-w="90%"></div></div></div>
-      <div class="skill"><h4>Snowflake — Data Warehousing</h4><div class="bar"><div class="fill" data-w="85%"></div></div></div>
-      <div class="skill"><h4>SQL — Data Engineering</h4><div class="bar"><div class="fill" data-w="92%"></div></div></div>
-      <div class="skill"><h4>Data Engineering — Pipelines & Modeling</h4><div class="bar"><div class="fill" data-w="95%"></div></div></div>
+    <div class="container">
+      <div class="section-title">Skills & Tools</div>
+      <div class="skills">
+        <div class="skill"><h4 style="margin:0 0 8px 0">AWS — Cloud Platforms</h4><div class="bar"><div class="fill" data-w="90%"></div></div></div>
+        <div class="skill"><h4 style="margin:0 0 8px 0">Snowflake — Data Warehousing</h4><div class="bar"><div class="fill" data-w="85%"></div></div></div>
+        <div class="skill"><h4 style="margin:0 0 8px 0">SQL — Data Engineering</h4><div class="bar"><div class="fill" data-w="92%"></div></div></div>
+        <div class="skill"><h4 style="margin:0 0 8px 0">Pipelines & Modeling</h4><div class="bar"><div class="fill" data-w="95%"></div></div></div>
+      </div>
     </div>
   </section>
 
-  <!-- Projects -->
   <section id="projects" class="reveal">
-    <div class="section-title">Selected Projects</div>
-    <div class="projects-grid">
-      <!-- Replace with your real projects; use data-img attribute -->
-      <article class="project" tabindex="0" data-title="Enterprise Warehouse" data-desc="Designed and implemented Snowflake architecture with dimensional models and performance tuning.">
-        <div class="tag">Snowflake</div>
-        <h3>Enterprise Warehouse</h3>
-        <p style="color:var(--muted)">Optimized data models & delivered analytics-ready marts.</p>
-        <div style="margin-top:12px"><button class="btn" onclick="openModal(this)">Preview</button></div>
-      </article>
+    <div class="container">
+      <div class="section-title">Selected Projects</div>
+      <div class="projects">
+        <article class="project" tabindex="0" data-title="Enterprise Warehouse" data-desc="Designed Snowflake architecture, dimensional modeling, and performance tuning.">
+          <div class="tag">Snowflake</div>
+          <h3>Enterprise Warehouse</h3>
+          <p style="color:var(--muted)">Enterprise-scale warehousing with optimized compute & storage.</p>
+          <div style="margin-top:12px"><button class="btn" onclick="openModal(this)">Preview</button></div>
+        </article>
 
-      <article class="project" tabindex="0" data-title="Pipeline Framework" data-desc="Automated multi-source ETL pipelines with orchestration, retries, and monitoring.">
-        <div class="tag">ETL</div>
-        <h3>Pipeline Framework</h3>
-        <p style="color:var(--muted)">Resilient ingestion with schema evolution handling and alerts.</p>
-        <div style="margin-top:12px"><button class="btn" onclick="openModal(this)">Preview</button></div>
-      </article>
+        <article class="project" tabindex="0" data-title="Pipeline Framework" data-desc="Automated ETL pipelines, orchestration, and monitoring.">
+          <div class="tag">ETL</div>
+          <h3>Pipeline Framework</h3>
+          <p style="color:var(--muted)">Reliable ingestion and transformation at scale.</p>
+          <div style="margin-top:12px"><button class="btn" onclick="openModal(this)">Preview</button></div>
+        </article>
 
-      <article class="project" tabindex="0" data-title="Analytics Platform" data-desc="Developed analytic models and dashboards for near real-time KPIs.">
-        <div class="tag">Analytics</div>
-        <h3>Analytics Platform</h3>
-        <p style="color:var(--muted)">Aggregation layers & serving tables for BI tools.</p>
-        <div style="margin-top:12px"><button class="btn" onclick="openModal(this)">Preview</button></div>
-      </article>
+        <article class="project" tabindex="0" data-title="Analytics Platform" data-desc="Models & serving layers for near real-time KPIs.">
+          <div class="tag">Analytics</div>
+          <h3>Analytics Platform</h3>
+          <p style="color:var(--muted)">Aggregations & metrics powering dashboards.</p>
+          <div style="margin-top:12px"><button class="btn" onclick="openModal(this)">Preview</button></div>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- Contact -->
   <section id="contact" class="reveal">
-    <div class="section-title">Contact</div>
-    <p style="color:var(--muted)">Interested in collaborating? Reach out — I respond quickly.</p>
-    <p style="color:var(--muted)">📞 +91 884 9214 912 • 📧 <a href="mailto:your@email.com" style="color:var(--accent1)">your@email.com</a></p>
+    <div class="container">
+      <div class="section-title">Contact</div>
+      <p style="color:var(--muted)">Interested in collaborating? Reach out — I respond quickly. 📞 +91 884 9214 912 • 📧 <a href="mailto:your@email.com" style="color:var(--accent1)">your@email.com</a></p>
+    </div>
   </section>
 </main>
 
 <!-- modal -->
-<div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+<div id="modal" class="modal" aria-hidden="true">
   <div class="panel">
-    <button class="close" onclick="closeModal()" aria-label="Close modal" style="float:right;background:transparent;border:0;color:var(--muted);font-weight:700">✕</button>
+    <button class="close" onclick="closeModal()" style="float:right;background:transparent;border:0;color:var(--muted);font-weight:700">✕</button>
     <h3 id="modal-title"></h3>
     <p id="modal-desc" style="color:var(--muted)"></p>
     <div style="margin-top:16px"><a class="btn" href="#contact">Contact about this project</a></div>
   </div>
 </div>
 
-<footer class="footer">© Rutvij Dave — Built with engineering & motion</footer>
+<footer class="footer">© Rutvij Dave — Flagship Portfolio</footer>
 
 <script>
-/* -----------------------------
-   Globals & small helpers
-   ----------------------------- */
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
+/* Helpers */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
 
-/* Loader hide after assets ready */
+/* Loader hide and initial anim */
 window.addEventListener('load', ()=> {
   setTimeout(()=> {
-    const loader = $('#loader');
-    loader.style.opacity = 0;
-    loader.style.visibility = 'hidden';
-    // reveal initial elements
+    $('#loader').style.opacity = 0;
+    $('#loader').style.visibility = 'hidden';
+    // entrance animations
+    gsap.from('.brand', {y:-10, opacity:0, duration:.6});
+    gsap.from('.kicker', {y:10, opacity:0, duration:.8, delay:.2});
+    gsap.from('#hero-title', {y:24, opacity:0, duration:.9, delay:.3, ease:'expo.out'});
+    gsap.from('.h2', {y:20, opacity:0, duration:.9, delay:.45});
     revealOnScroll(true);
-    animateHeroType();
-  }, 450);
+  }, 420);
 });
 
-/* Cursor */
+/* Custom cursor */
 const cursor = $('#cursor');
-document.addEventListener('mousemove', (e)=> {
+document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
 });
 document.addEventListener('mousedown', ()=> cursor.style.transform = 'translate(-50%,-50%) scale(.85)');
 document.addEventListener('mouseup', ()=> cursor.style.transform = 'translate(-50%,-50%) scale(1)');
 
-/* Performance toggle */
-let heavy = true;
-$('#perfToggle').addEventListener('click', (e)=>{
-  heavy = !heavy;
-  $('#perfToggle').textContent = heavy ? 'Perf: Full' : 'Perf: Lite';
-  // enable/disable particle field
-  if(window.particles) window.particles.setEnabled(heavy);
-});
-
-/* ########################
-   Typewriter (hero)
-   ######################## */
-function animateHeroType(){
+/* Typewriter */
+(function typewriter(){
   const el = document.getElementById('type');
+  if(!el) return;
   const words = ['scalable data platforms','cloud architectures','reliable data pipelines','analytics-ready models'];
-  let w=0, i=0, deleting=false;
+  let w=0,i=0,deleting=false;
   function tick(){
     const word = words[w];
     el.textContent = word.slice(0,i);
@@ -292,110 +267,113 @@ function animateHeroType(){
     setTimeout(tick, deleting?40:80);
   }
   tick();
-}
+})();
 
-/* ########################
-   Scroll reveal & bars
-   ######################## */
-function revealOnScroll(initial=false){
+/* Reveal and skill bars */
+function revealOnScroll(init=false){
   const reveals = $$('.reveal');
   reveals.forEach(r=>{
-    const rect = r.getBoundingClientRect();
-    if(rect.top < window.innerHeight - 100){
+    const top = r.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
       r.classList.add('show');
-      // animate skill fills inside (if any)
-      r.querySelectorAll('.fill').forEach(f=>{
+      r.querySelectorAll('.fill').forEach(f => {
         const w = f.getAttribute('data-w');
         if(w) f.style.width = w;
       });
-    } else if(initial===false){
+    } else if(!init){
       r.classList.remove('show');
     }
   });
 }
 window.addEventListener('scroll', revealOnScroll);
 
-/* ########################
-   Modal project preview
-   ######################## */
+/* Modal */
 function openModal(btn){
-  const article = btn.closest('.project');
-  const title = article.dataset.title || article.querySelector('h3').innerText;
-  const desc = article.dataset.desc || article.querySelector('p').innerText;
+  const art = btn.closest('.project');
+  const title = art.dataset.title || art.querySelector('h3').innerText;
+  const desc = art.dataset.desc || art.querySelector('p').innerText;
   $('#modal-title').innerText = title;
   $('#modal-desc').innerText = desc;
-  const modal = $('#modal'); modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
+  $('#modal').classList.add('show');
+  $('#modal').setAttribute('aria-hidden','false');
 }
-function closeModal(){ const modal = $('#modal'); modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); }
-document.addEventListener('keydown', e=> { if(e.key === 'Escape') closeModal(); });
+function closeModal(){ $('#modal').classList.remove('show'); $('#modal').setAttribute('aria-hidden','true'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
 
-/* ########################
-   Magnetic tilt for project cards (GSAP)
-   ######################## */
-$$('.project').forEach(card=>{
-  card.addEventListener('mousemove', e=>{
+/* Magnetic tilt for projects (lightweight) */
+$$('.project').forEach(card => {
+  card.addEventListener('mousemove', e => {
     const rect = card.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const px = (mouseX / rect.width - 0.5) * 20; // tilt range
-    const py = (mouseY / rect.height - 0.5) * -20;
-    gsap.to(card, {duration:0.6, rotateX: py, rotateY: px, scale:1.02, ease:'power3.out', transformOrigin:'center'});
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    gsap.to(card, {rotationY: x * 8, rotationX: -y * 8, scale:1.02, transformPerspective:600, duration:0.6, ease:'expo.out'});
   });
-  card.addEventListener('mouseleave', ()=> gsap.to(card, {duration:0.6, rotateX:0, rotateY:0, scale:1, ease:'power3.out'}));
+  card.addEventListener('mouseleave', ()=> gsap.to(card, {rotationY:0, rotationX:0, scale:1, duration:0.6, ease:'expo.out'}));
 });
 
-/* ########################
-   WebGL particle field (Three.js)
-   - lightweight but powerful shader-based points
-   - supports enable/disable
-   ######################## */
-(function createParticles(){
-  // container & renderer
-  const canvas = document.getElementById('hero-canvas');
-  const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, alpha: true});
+/* GOD MODE toggle: ultra effects */
+let god = false;
+$('#godToggle').addEventListener('click', ()=> {
+  god = !god;
+  $('#godToggle').textContent = god ? 'God: ON' : 'God: OFF';
+  // tweak particle intensity (if available)
+  if(window.particles && window.particles.setIntensity) window.particles.setIntensity(god ? 1.6 : 1.0);
+});
+
+/* -----------------------------
+   Advanced WebGL particles (shader-based)
+   - Uses THREE.Points with custom vertex/fragment shaders
+   - Built to be performant and additive for glow
+   ----------------------------- */
+(function initGL(){
+  const canvas = document.getElementById('glCanvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.autoClear = true;
 
-  // scene & camera
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 1, 2000);
-  camera.position.set(0,0,350);
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 1, 4000);
+  camera.position.set(0,0,500);
 
-  // particles geometry
-  const PARTICLE_COUNT = 12000; // moderate default (scales)
-  const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(PARTICLE_COUNT * 3);
-  const colors = new Float32Array(PARTICLE_COUNT * 3);
-  const sizes = new Float32Array(PARTICLE_COUNT);
-  for(let i=0;i<PARTICLE_COUNT;i++){
-    const phi = Math.random()*Math.PI*2;
-    const cost = (Math.random()-0.5)*2;
-    const r = 200 + Math.random()*700;
-    const x = Math.cos(phi)*r* (0.6 + Math.random()*0.8);
-    const y = Math.sin(phi)*r* (0.6 + Math.random()*0.8);
-    const z = (Math.random()-0.5)*1200;
-    positions[i*3]=x; positions[i*3+1]=y; positions[i*3+2]=z;
-    const c = (Math.random()*0.6+0.4);
-    colors[i*3]=c; colors[i*3+1]=0.9*c; colors[i*3+2]=1*c;
-    sizes[i]=2 + Math.random()*6;
+  // geometry
+  const MAX = 18000; // base
+  let count = Math.floor(MAX * 1.0);
+  const positions = new Float32Array(count * 3);
+  const scales = new Float32Array(count);
+  const colors = new Float32Array(count * 3);
+  for(let i=0;i<count;i++){
+    const r = 200 + Math.random()*800;
+    const theta = Math.random()*Math.PI*2;
+    positions[i*3] = Math.cos(theta) * r * (0.5 + Math.random()*0.8);
+    positions[i*3+1] = Math.sin(theta) * r * (0.5 + Math.random()*0.8);
+    positions[i*3+2] = (Math.random()-0.5) * 1600;
+    scales[i] = 1 + Math.random()*3;
+    const mix = Math.random();
+    colors[i*3] = 0.4 + mix*0.6;
+    colors[i*3+1] = 0.9;
+    colors[i*3+2] = 1.0;
   }
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions,3));
-  geometry.setAttribute('aColor', new THREE.BufferAttribute(colors,3));
-  geometry.setAttribute('size', new THREE.BufferAttribute(sizes,1));
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geom.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
+  geom.setAttribute('aColor', new THREE.BufferAttribute(colors, 3));
 
-  // shader material
-  const material = new THREE.ShaderMaterial({
-    transparent: true,
-    depthTest: true,
-    uniforms: {
-      uTime: {value:0},
-      uPixelRatio: {value: Math.min(window.devicePixelRatio,2)},
-      uMouse: {value: new THREE.Vector2(0,0)},
-      uAccent1: {value: new THREE.Color('#38bdf8')},
-      uAccent2: {value: new THREE.Color('#818cf8')}
+  // shaders
+  const mat = new THREE.ShaderMaterial({
+    transparent:true,
+    depthTest:true,
+    blending:THREE.AdditiveBlending,
+    uniforms:{
+      uTime:{value:0},
+      uPixel:{value:Math.min(window.devicePixelRatio,2)},
+      uAccent1:{value:new THREE.Color('#00e5ff')},
+      uAccent2:{value:new THREE.Color('#8c7bff')},
+      uMouse:{value:new THREE.Vector2(0,0)},
+      uIntensity:{value:1.0}
     },
-    vertexShader: `
-      attribute float size;
+    vertexShader:`
+      attribute float aScale;
       attribute vec3 aColor;
       varying vec3 vColor;
       uniform float uTime;
@@ -403,133 +381,140 @@ $$('.project').forEach(card=>{
       void main(){
         vColor = aColor;
         vec3 pos = position;
-        // subtle breathing motion
-        float t = uTime * 0.2;
-        pos.x += sin(t + position.y * 0.01) * 6.0;
-        pos.y += cos(t + position.x * 0.01) * 6.0;
-        vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-        gl_PointSize = size * (200.0 / -mvPosition.z);
-        gl_Position = projectionMatrix * mvPosition;
+        float t = uTime * 0.35;
+        pos.x += sin(t + position.y * 0.006) * 8.0 * (aScale * 0.8);
+        pos.y += cos(t + position.x * 0.005) * 8.0 * (aScale * 0.8);
+        // mouse repulsion subtle
+        vec2 m = uMouse * 800.0;
+        float dist = length((pos.xy - m));
+        pos.z += sin(t + dist*0.01) * 6.0;
+        vec4 mv = modelViewMatrix * vec4(pos,1.0);
+        gl_PointSize = aScale * (200.0 / -mv.z) * (uPixel);
+        gl_Position = projectionMatrix * mv;
       }
     `,
-    fragmentShader: `
+    fragmentShader:`
       uniform vec3 uAccent1;
       uniform vec3 uAccent2;
       varying vec3 vColor;
       void main(){
         vec2 coord = gl_PointCoord - vec2(0.5);
-        float dist = length(coord);
-        float alpha = 1.0 - smoothstep(0.35, 0.5, dist);
+        float d = length(coord);
+        float alpha = 1.0 - smoothstep(0.35, 0.55, d);
         vec3 col = mix(uAccent1, uAccent2, vColor.r);
-        gl_FragColor = vec4(col, alpha * 0.9);
+        gl_FragColor = vec4(col, alpha * 0.95);
       }
     `
   });
 
-  const points = new THREE.Points(geometry, material);
+  const points = new THREE.Points(geom, mat);
   scene.add(points);
 
-  // resize handler
+  // responsiveness
   window.addEventListener('resize', ()=> {
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth/window.innerHeight;
     camera.updateProjectionMatrix();
   });
 
-  // simple parallax using mouse
+  // mouse for parallax
   const mouse = new THREE.Vector2(0,0);
   document.addEventListener('mousemove', (e)=> {
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (e.clientY / window.innerHeight) * 2 + 1;
-    material.uniforms.uMouse.value.set(mouse.x, mouse.y);
+    mat.uniforms.uMouse.value.set(mouse.x, mouse.y);
   });
 
-  // animate loop
   const clock = new THREE.Clock();
   let enabled = true;
-  function animate(){
+  function render(){
     if(enabled){
-      material.uniforms.uTime.value = clock.getElapsedTime();
-      // parallax camera subtle movement influenced by mouse
+      mat.uniforms.uTime.value = clock.getElapsedTime();
+      // camera parallax
       camera.position.x += (mouse.x * 60 - camera.position.x) * 0.06;
       camera.position.y += (mouse.y * 40 - camera.position.y) * 0.06;
       camera.lookAt(0,0,0);
       renderer.render(scene, camera);
     } else {
-      // clear or render minimal static
       renderer.clear();
     }
-    requestAnimationFrame(animate);
+    requestAnimationFrame(render);
   }
-  animate();
+  render();
 
-  // public control
+  // public API
   window.particles = {
-    setEnabled: (v)=> { enabled = !!v; if(!enabled) renderer.clear(); }
-  };
-
-  // sound-reactive hook (pop particle jitter)
-  window.pulseParticles = (intensity=1)=> {
-    // small wave on position attribute
-    const pos = geometry.attributes.position.array;
-    for(let i=0;i<PARTICLE_COUNT;i++){
-      pos[i*3] += (Math.random()-0.5) * intensity * 8;
-      pos[i*3+1] += (Math.random()-0.5) * intensity * 8;
+    setEnabled: (v) => { enabled = !!v; if(!enabled) renderer.clear(); },
+    setIntensity: (s) => { mat.uniforms.uIntensity.value = s; mat.uniforms.uTime.value *= s; },
+    pulse: (amount) => {
+      const pos = geom.attributes.position.array;
+      for(let i=0;i<pos.length;i++){
+        pos[i] += (Math.random()-0.5)*amount;
+      }
+      geom.attributes.position.needsUpdate = true;
     }
-    geometry.attributes.position.needsUpdate = true;
   };
 
 })();
 
-/* ####################
-   Sound reactive (microphone) - opt-in
-   #################### */
-let audioCtx, analyser, micStream;
-$('#audioToggle').addEventListener('click', async (e)=>{
-  e.preventDefault();
-  if($('#audioToggle').dataset.active === '1'){
-    // disable
-    $('#audioToggle').dataset.active = '0';
-    $('#audioToggle').textContent = 'Enable Sound';
-    if(micStream) { micStream.getTracks().forEach(t=>t.stop()); micStream = null; }
-    if(audioCtx) { audioCtx.close(); audioCtx=null; }
-    return;
-  }
-
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true, video:false});
-    micStream = stream;
+/* Sound reactive (optional) */
+let audioCtx, analyser, mic;
+async function enableAudio(){
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const source = audioCtx.createMediaStreamSource(stream);
+    const src = audioCtx.createMediaStreamSource(stream);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 2048;
-    source.connect(analyser);
-    $('#audioToggle').dataset.active = '1';
-    $('#audioToggle').textContent = 'Sound On';
-    // read levels and pulse
-    const data = new Uint8Array(analyser.frequencyBinCount);
-    (function read(){
-      if(!analyser) return;
+    src.connect(analyser);
+    mic = stream;
+    (function loop(){
+      const data = new Uint8Array(analyser.frequencyBinCount);
       analyser.getByteFrequencyData(data);
-      // compute average
       let sum=0;
-      for(let i=0;i<data.length;i++) sum+=data[i];
+      for(let i=0;i<data.length;i++) sum += data[i];
       const avg = sum / data.length;
-      const intensity = Math.min(6, avg / 20);
-      if(window.pulseParticles) window.pulseParticles(intensity);
-      requestAnimationFrame(read);
+      const intensity = Math.min(8, avg / 16);
+      if(window.particles) window.particles.pulse(intensity);
+      requestAnimationFrame(loop);
     })();
-  } catch(err){
-    alert('Microphone access denied or not available.');
-    console.error(err);
+  } catch(e){ console.warn('Audio not enabled', e); alert('Microphone access denied or unavailable.'); }
+}
+document.getElementById('godToggle').addEventListener('dblclick', ()=> {
+  // double-click the God button to start microphone demo (since it's heavy/explicit)
+  if(!mic) enableAudio();
+});
+
+/* keyboard: press G to toggle God mode */
+document.addEventListener('keydown', (e)=>{
+  if(e.key.toLowerCase() === 'g'){
+    const btn = document.getElementById('godToggle');
+    btn.click();
   }
 });
 
-/* Safety: performance mode initially full */
-if(window.particles) window.particles.setEnabled(true);
+/* reveal sections on scroll */
+function revealOnScroll(){
+  $$('.reveal').forEach(s=>{
+    if(s.getBoundingClientRect().top < window.innerHeight - 120) s.classList.add('show');
+  });
+}
+window.addEventListener('scroll', revealOnScroll); revealOnScroll();
 
-/* Helpful console log */
-console.info('Elite portfolio loaded — edit project cards and contact info as needed.');
+/* modal handlers */
+function openModal(btn){
+  const art = btn.closest('.project');
+  const title = art.dataset.title || art.querySelector('h3').textContent;
+  const desc = art.dataset.desc || art.querySelector('p').textContent;
+  $('#modal-title').textContent = title;
+  $('#modal-desc').textContent = desc;
+  $('#modal').classList.add('show'); $('#modal').setAttribute('aria-hidden','false');
+}
+function closeModal(){ $('#modal').classList.remove('show'); $('#modal').setAttribute('aria-hidden','true'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+/* Nice-to-have console hint */
+console.info('God Mode portfolio loaded. Tip: press "G" to toggle God mode. Double-click God button to enable audio-reactive particle pulse (mic permission required).');
 </script>
 </body>
 </html>
