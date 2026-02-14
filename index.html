@@ -5,36 +5,54 @@
 <title>Rutvij Dave | Data Engineer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
 <style>
-/* ---------- GLOBAL ---------- */
 body{
 margin:0;
-font-family:Segoe UI, sans-serif;
+font-family:Poppins,sans-serif;
 background:#0f172a;
 color:white;
 scroll-behavior:smooth;
+overflow-x:hidden;
 }
 
-section{
-padding:80px 10%;
+/* NAVBAR */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:18px 10%;
+background:rgba(15,23,42,.7);
+backdrop-filter:blur(12px);
+z-index:1000;
 }
 
-h1,h2,h3{margin:0}
+nav a{
+color:white;
+text-decoration:none;
+margin:0 15px;
+font-weight:500;
+}
 
-/* ---------- HERO ---------- */
+nav a:hover{color:#38bdf8}
+
+/* HERO */
 .hero{
 height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-background:linear-gradient(-45deg,#0f172a,#1e293b,#020617,#0f172a);
-background-size:400% 400%;
-animation:gradient 12s ease infinite;
 text-align:center;
+background:linear-gradient(-45deg,#020617,#0f172a,#1e293b,#020617);
+background-size:400% 400%;
+animation:bg 12s infinite ease;
 }
 
-@keyframes gradient{
+@keyframes bg{
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
@@ -42,64 +60,83 @@ text-align:center;
 
 .hero h1{
 font-size:70px;
-letter-spacing:2px;
+margin:0;
 background:linear-gradient(90deg,#38bdf8,#818cf8);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-animation:fadeIn 2s ease;
 }
 
 .hero h2{
 margin-top:15px;
 font-weight:300;
 opacity:.85;
-animation:fadeIn 3s ease;
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(30px)}
-to{opacity:1; transform:translateY(0)}
+.typing{
+color:#38bdf8;
+border-right:3px solid;
+padding-right:5px;
+animation:blink .7s infinite;
 }
 
-/* ---------- CARD ---------- */
+@keyframes blink{
+50%{border-color:transparent}
+}
+
+/* SECTION */
+section{
+padding:120px 10%;
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+section.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.title{
+font-size:38px;
+margin-bottom:40px;
+text-align:center;
+background:linear-gradient(90deg,#38bdf8,#818cf8);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* CARDS */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
 .card{
 background:#1e293b;
 padding:30px;
 border-radius:16px;
-box-shadow:0 0 30px rgba(0,0,0,.5);
-margin-top:40px;
 transition:.4s;
 }
 
 .card:hover{
-transform:translateY(-10px) scale(1.02);
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 40px rgba(56,189,248,.3);
 }
 
-/* ---------- GRID ---------- */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-margin-top:40px;
-}
-
-/* ---------- SKILL BARS ---------- */
-.skill{
-margin:20px 0;
-}
-
+/* SKILLS */
 .bar{
-height:14px;
-background:#0f172a;
+height:12px;
+background:#020617;
 border-radius:20px;
+margin:10px 0 25px;
 overflow:hidden;
 }
 
 .fill{
 height:100%;
-width:0;
 background:linear-gradient(90deg,#38bdf8,#6366f1);
-border-radius:20px;
+width:0;
 animation:load 2s forwards;
 }
 
@@ -107,23 +144,12 @@ animation:load 2s forwards;
 to{width:var(--w)}
 }
 
-/* ---------- TITLES ---------- */
-.title{
-font-size:36px;
-margin-bottom:20px;
-text-align:center;
-background:linear-gradient(90deg,#38bdf8,#818cf8);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-/* ---------- FOOTER ---------- */
+/* FOOTER */
 footer{
 text-align:center;
-padding:40px;
+padding:50px;
 background:#020617;
 margin-top:60px;
-font-size:14px;
 opacity:.7;
 }
 </style>
@@ -131,122 +157,111 @@ opacity:.7;
 
 <body>
 
+<!-- NAVBAR -->
+<nav>
+<div><b>Rutvij</b></div>
+<div>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
 <!-- HERO -->
-<section class="hero">
+<div class="hero">
 <h1>Rutvij Dave</h1>
-<h2>Senior Data Engineer • Cloud Architect • Big Data Specialist</h2>
-</section>
+<h2>I build <span class="typing" id="typing"></span></h2>
+</div>
 
 <!-- ABOUT -->
-<section>
+<section id="about">
 <h2 class="title">About Me</h2>
-<div class="card">
-I am a results-driven <b>Senior Data Engineer</b> with <b>7+ years of experience</b>, including
-<b>5+ years specializing in Data Engineering</b>. I design scalable data platforms,
-modern architectures, and analytics systems. I specialize in building high-performance
-pipelines, data warehouses, and cloud infrastructures using AWS and Snowflake.
-</div>
-</section>
-
-<!-- EXPERIENCE -->
-<section>
-<h2 class="title">Experience</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Senior Data Engineer</h3>
-<p><b>Inferenz Tech Pvt Ltd</b></p>
-<ul>
-<li>Designed optimal data pipeline architecture</li>
-<li>Built ETL infrastructure across sources</li>
-<li>Created Snowflake data models</li>
-<li>Implemented orchestration & quality systems</li>
-<li>Delivered warehouse architecture solutions</li>
-</ul>
-</div>
-
-</div>
+<p style="max-width:700px;margin:auto;text-align:center">
+Senior Data Engineer with 7+ years experience designing scalable data platforms,
+modern warehouse architectures, and high-performance pipelines using AWS and Snowflake.
+I specialize in building production-grade data systems that transform raw data into
+decision-ready intelligence.
+</p>
 </section>
 
 <!-- SKILLS -->
-<section>
+<section id="skills">
 <h2 class="title">Skills</h2>
 
-<div class="card">
-
-<div class="skill">AWS
+AWS
 <div class="bar"><div class="fill" style="--w:90%"></div></div>
-</div>
 
-<div class="skill">Snowflake
+Snowflake
 <div class="bar"><div class="fill" style="--w:85%"></div></div>
-</div>
 
-<div class="skill">SQL
+SQL
 <div class="bar"><div class="fill" style="--w:92%"></div></div>
-</div>
 
-<div class="skill">Data Engineering
+Data Engineering
 <div class="bar"><div class="fill" style="--w:95%"></div></div>
-</div>
 
-</div>
 </section>
 
-<!-- EXPERTISE -->
-<section>
-<h2 class="title">Expertise</h2>
+<!-- PROJECTS -->
+<section id="projects">
+<h2 class="title">Projects</h2>
 
 <div class="grid">
 
-<div class="card">Data Warehousing</div>
-<div class="card">ETL / ELT Pipelines</div>
-<div class="card">Data Modeling</div>
-<div class="card">Cloud Architecture</div>
-<div class="card">Automation</div>
-<div class="card">Analytics Systems</div>
-
+<div class="card">
+<h3>Enterprise Warehouse</h3>
+<p>Designed scalable Snowflake warehouse with optimized transformations.</p>
 </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section>
-<h2 class="title">Certifications</h2>
 
 <div class="card">
-<ul>
-<li>Big Data Engineer — Explorer Award</li>
-<li>AWS Academy Graduate — Cloud Foundations</li>
-<li>Artificial Intelligence Analyst — Mastery Award</li>
-<li>Artificial Intelligence Analyst — Explorer Award</li>
-<li>Hands-on Essentials — Data Warehouse</li>
-</ul>
+<h3>Pipeline Framework</h3>
+<p>Automated multi-source ingestion pipeline with monitoring and alerts.</p>
 </div>
-</section>
 
-<!-- PHILOSOPHY -->
-<section>
-<h2 class="title">Engineering Philosophy</h2>
+<div class="card">
+<h3>Analytics Platform</h3>
+<p>Built data models powering real-time business intelligence dashboards.</p>
+</div>
 
-<div class="card" style="text-align:center;font-size:20px">
-“Great systems are invisible — they simply work.”
 </div>
 </section>
 
 <!-- CONTACT -->
-<section>
+<section id="contact">
 <h2 class="title">Contact</h2>
-
-<div class="card" style="text-align:center">
+<p style="text-align:center">
 📞 +91 884 9214 912<br><br>
-📧 rutvijdave74@email.com
-</div>
+📧 your@email.com
+</p>
 </section>
 
 <footer>
-© Rutvij Dave — Built with modern web engineering principles
+© Rutvij Dave — Data Engineering Portfolio
 </footer>
+
+<script>
+/* typing text */
+const words=["scalable data systems","cloud architectures","data pipelines","analytics platforms"];
+let i=0,j=0,current="",isDeleting=false;
+function type(){
+current=words[i];
+document.getElementById("typing").textContent=current.substring(0,j);
+if(!isDeleting && j++===current.length){isDeleting=true;setTimeout(type,1200);return;}
+if(isDeleting && j--===0){isDeleting=false;i=(i+1)%words.length;}
+setTimeout(type,isDeleting?50:100);
+}
+type();
+
+/* scroll animation */
+const sections=document.querySelectorAll("section");
+window.addEventListener("scroll",()=>{
+sections.forEach(sec=>{
+const top=sec.getBoundingClientRect().top;
+if(top<window.innerHeight-100){sec.classList.add("show")}
+})
+});
+</script>
 
 </body>
 </html>
