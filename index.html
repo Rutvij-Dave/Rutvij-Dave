@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Rutvij Dave</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Rutvij Dave — Senior Data Engineer</title>
@@ -33,170 +28,6 @@
 <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
 
 <style>
-
-/* ===== GLOBAL ===== */
-body{
-margin:0;
-font-family:Inter, sans-serif;
-background:#0a0f1f;
-color:white;
-overflow-x:hidden;
-scroll-behavior:smooth;
-}
-
-/* animated gradient blobs */
-.blob{
-position:fixed;
-width:500px;
-height:500px;
-background:radial-gradient(circle,#38bdf8,transparent 70%);
-filter:blur(120px);
-opacity:.25;
-z-index:-1;
-animation:move 20s infinite alternate ease-in-out;
-}
-.blob:nth-child(2){
-background:radial-gradient(circle,#818cf8,transparent 70%);
-left:60%;
-top:40%;
-animation-delay:5s;
-}
-@keyframes move{
-to{transform:translate(200px,-150px) scale(1.2);}
-}
-
-/* NAV */
-nav{
-position:fixed;
-width:100%;
-padding:22px 8%;
-display:flex;
-justify-content:space-between;
-backdrop-filter:blur(12px);
-background:rgba(10,15,31,.6);
-z-index:10;
-}
-nav a{
-color:white;text-decoration:none;margin-left:30px;
-opacity:.8;
-transition:.3s;
-}
-nav a:hover{opacity:1;color:#38bdf8}
-
-/* HERO */
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
-
-.hero h1{
-font-size:80px;
-margin:0;
-background:linear-gradient(90deg,#38bdf8,#818cf8);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.hero p{
-margin-top:20px;
-font-size:22px;
-opacity:.85;
-}
-
-/* SECTIONS */
-section{
-padding:140px 10%;
-max-width:1100px;
-margin:auto;
-opacity:0;
-transform:translateY(40px);
-transition:1.2s;
-}
-section.show{
-opacity:1;
-transform:translateY(0);
-}
-
-.title{
-font-size:42px;
-margin-bottom:40px;
-}
-
-/* CARDS */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
-}
-
-.card{
-background:#11172c;
-padding:35px;
-border-radius:18px;
-transition:.35s;
-position:relative;
-overflow:hidden;
-}
-
-.card::before{
-content:"";
-position:absolute;
-width:200%;
-height:200%;
-background:linear-gradient(120deg,transparent,#38bdf8,transparent);
-transform:rotate(25deg);
-left:-100%;
-top:-100%;
-transition:.6s;
-}
-.card:hover::before{
-left:100%;
-top:100%;
-}
-
-.card:hover{
-transform:translateY(-10px);
-}
-
-/* SKILLS */
-.skill{margin:25px 0;}
-.bar{
-height:12px;
-background:#050814;
-border-radius:20px;
-overflow:hidden;
-}
-.fill{
-height:100%;
-background:linear-gradient(90deg,#38bdf8,#6366f1);
-width:0;
-animation:load 2s forwards;
-}
-@keyframes load{to{width:var(--w)}}
-
-/* FOOTER */
-footer{
-text-align:center;
-padding:80px 20px;
-opacity:.6;
-}
-
-/* CURSOR GLOW */
-.cursor{
-position:fixed;
-width:20px;
-height:20px;
-border-radius:50%;
-background:#38bdf8;
-pointer-events:none;
-mix-blend-mode:screen;
-transform:translate(-50%,-50%);
-transition:.1s;
-z-index:999;
 :root{
   --bg:#07071a;
   --card:#0f1726;
@@ -282,64 +113,8 @@ section{padding:96px 6%;position:relative;z-index:2}
 .reveal.show{opacity:1;transform:translateY(0)}
 </style>
 </head>
-
 <body>
 
-<div class="blob"></div>
-<div class="blob"></div>
-<div class="cursor"></div>
-
-<nav>
-<div><b>Rutvij</b></div>
-<div>
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#projects">Projects</a>
-</div>
-</nav>
-
-<div class="hero">
-<h1>Rutvij Dave</h1>
-<p>Designing data systems that scale intelligently</p>
-</div>
-
-<section id="about">
-<div class="title">About</div>
-<p>
-Senior Data Engineer with 7+ years experience building scalable data platforms,
-modern architectures, and analytics systems using AWS and Snowflake.
-I specialize in transforming raw data into decision-ready intelligence.
-</p>
-</section>
-
-<section id="skills">
-<div class="title">Skills</div>
-
-<div class="skill">AWS<div class="bar"><div class="fill" style="--w:90%"></div></div></div>
-<div class="skill">Snowflake<div class="bar"><div class="fill" style="--w:85%"></div></div></div>
-<div class="skill">SQL<div class="bar"><div class="fill" style="--w:92%"></div></div></div>
-<div class="skill">Data Engineering<div class="bar"><div class="fill" style="--w:95%"></div></div></div>
-
-</section>
-
-<section id="projects">
-<div class="title">Projects</div>
-
-<div class="grid">
-
-<div class="card">
-<h3>Enterprise Warehouse</h3>
-<p>Designed scalable Snowflake architecture powering analytics workloads.</p>
-</div>
-
-<div class="card">
-<h3>ETL Platform</h3>
-<p>Automated ingestion pipelines with monitoring and resilience.</p>
-</div>
-
-<div class="card">
-<h3>Analytics Models</h3>
-<p>Built production data models supporting business insights.</p>
 <!-- Loader -->
 <div id="loader" role="status" aria-hidden="false">
   <div class="loader-dots" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -461,11 +236,7 @@ I specialize in transforming raw data into decision-ready intelligence.
     <div style="margin-top:16px"><a class="btn" href="#contact">Contact about this project</a></div>
   </div>
 </div>
-</section>
 
-<footer>
-© Rutvij Dave — Data Engineer Portfolio
-</footer>
 <footer class="footer">© Rutvij Dave — Built with engineering & motion</footer>
 
 <script>
@@ -487,12 +258,6 @@ window.addEventListener('load', ()=> {
   }, 450);
 });
 
-/* scroll reveal */
-const sections=document.querySelectorAll("section");
-window.addEventListener("scroll",()=>{
-sections.forEach(s=>{
-if(s.getBoundingClientRect().top<window.innerHeight-100)
-s.classList.add("show");
 /* Cursor */
 const cursor = $('#cursor');
 document.addEventListener('mousemove', (e)=> {
@@ -511,11 +276,6 @@ $('#perfToggle').addEventListener('click', (e)=>{
   if(window.particles) window.particles.setEnabled(heavy);
 });
 
-/* cursor glow */
-const cursor=document.querySelector(".cursor");
-document.addEventListener("mousemove",e=>{
-cursor.style.left=e.clientX+"px";
-cursor.style.top=e.clientY+"px";
 /* ########################
    Typewriter (hero)
    ######################## */
@@ -583,7 +343,6 @@ $$('.project').forEach(card=>{
   });
   card.addEventListener('mouseleave', ()=> gsap.to(card, {duration:0.6, rotateX:0, rotateY:0, scale:1, ease:'power3.out'}));
 });
-</script>
 
 /* ########################
    WebGL particle field (Three.js)
